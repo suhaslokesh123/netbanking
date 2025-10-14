@@ -1,0 +1,50 @@
+<div class="oj-flex oj-sm-padding-4x" id="userProfilePage">
+  <div class="oj-flex-item">
+    <h2 class="oj-typography-heading-lg oj-text-color-primary">My Profile</h2>
+
+    <!-- Profile Information -->
+    <div class="oj-panel oj-sm-margin-4x" style="max-width: 600px; margin: 0 auto;">
+      <h3 class="oj-typography-heading-md">Profile Information</h3>
+
+      <div class="oj-sm-margin-2x-top">
+        <label class="oj-label">User ID:</label>
+        <span data-bind="text: profileData().userId" class="oj-sm-margin-2x-start"></span>
+      </div>
+
+      <div class="oj-sm-margin-2x-top">
+        <label class="oj-label">Username:</label>
+        <span data-bind="text: profileData().username" class="oj-sm-margin-2x-start"></span>
+      </div>
+
+      <div class="oj-sm-margin-2x-top">
+        <label class="oj-label">Email:</label>
+        <span data-bind="text: profileData().email" class="oj-sm-margin-2x-start"></span>
+      </div>
+
+      <div class="oj-sm-margin-2x-top">
+        <label class="oj-label">Phone:</label>
+        <span data-bind="text: profileData().phone" class="oj-sm-margin-2x-start"></span>
+      </div>
+
+      <div class="oj-sm-margin-2x-top">
+        <label class="oj-label">Status:</label>
+        <span data-bind="text: profileData().status" class="oj-sm-margin-2x-start"></span>
+      </div>
+
+      <div class="oj-sm-margin-2x-top">
+        <label class="oj-label">Created At:</label>
+        <span data-bind="text: profileData().createdAt" class="oj-sm-margin-2x-start"></span>
+      </div>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <div class="oj-sm-margin-4x-top oj-flex oj-sm-justify-content-center">
+      <oj-button on-oj-action="backToDashboard" class="oj-button-primary">
+        Back to Dashboard
+      </oj-button>
+    </div>
+
+    <!-- Status Message -->
+    <div data-bind="text: statusMessage" class="oj-sm-margin-2x-top oj-text-color-secondary"></div>
+  </div>
+</div>

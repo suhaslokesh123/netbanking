@@ -1,0 +1,96 @@
+<div class="oj-flex oj-sm-padding-4x" id="usersPage">
+  <div class="oj-flex-item">
+    <h2 class="oj-typography-heading-lg oj-text-color-primary">User Details</h2>
+
+    <!-- Users Table -->
+    <oj-table
+      id="usersTable"
+      aria-label="User Table"
+      data="[[dataProvider]]"
+      columns='[
+        {"headerText": "User ID", "field": "userId"},
+        {"headerText": "Username", "field": "username"},
+        {"headerText": "Email", "field": "email"},
+        {"headerText": "Phone", "field": "phone"},
+        {"headerText": "Status", "field": "status"},
+        {"headerText": "Created At", "field": "createdAt"},
+        {"headerText": "Actions", "template": "actionTemplate"}
+      ]'
+      display="grid"
+      class="oj-sm-margin-4x-top"
+      style="width:100%; max-width:1100px; margin:auto;">
+      
+      <!-- Status Template -->
+      <template slot="statusTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data.status.charAt(0).toUpperCase() + cell.data.status.slice(1)"></span>
+      </template>
+
+      <!-- Actions Template -->
+      <template slot="actionTemplate" data-oj-as="cell">
+        <div style="display: flex; gap: 10px;">
+          <a href="#" style="color: #007bff; text-decoration: none;" data-bind="click: function() { startEdit(cell.row); }">Edit</a>
+          <a href="#" style="color: #dc3545; text-decoration: none;" data-bind="click: function() { deleteUser(cell.row); }">Delete</a>
+        </div>
+      </template>
+    </oj-table>
+
+    <!-- Refresh Button -->
+    <div class="oj-sm-margin-4x-top">
+      <oj-button id="refreshBtn" on-oj-action="[[refreshUsers]]">
+        Refresh
+      </oj-button>
+    </div>
+
+    <hr class="oj-sm-margin-4x-top">
+
+    <!-- Edit User Form (shown when editing) -->
+    <div id="editForm" data-bind="visible: isEditing" style="display: none;">
+      <h3 class="oj-typography-heading-md oj-text-color-primary">Edit User</h3>
+      <oj-input-text label-hint="Username" value="{{editUsername}}" required></oj-input-text>
+      <oj-input-text label-hint="Email" value="{{editEmail}}" required></oj-input-text>
+      <oj-input-text label-hint="Phone" value="{{editPhone}}" required></oj-input-text>
+      <oj-input-text label-hint="New Password (leave blank to keep current)" value="{{editPassword}}"></oj-input-text>
+      <oj-buttonset-one 
+        label-hint="Status" 
+        value="{{editStatus}}" 
+        class="oj-sm-margin-2x-top">
+      <oj-option value="active">Active</oj-option>
+      <oj-option value="inactive">Inactive</oj-option>
+      <oj-option value="suspended">Suspended</oj-option>
+      </oj-buttonset-one>
+
+      <div class="oj-sm-margin-2x-top">
+        <oj-button on-oj-action="[[updateUser]]" class="oj-button-primary">
+          Update User
+        </oj-button>
+        <oj-button on-oj-action="[[cancelEdit]]" chroming="outlined" class="oj-sm-margin-2x-start">
+          Cancel
+        </oj-button>
+      </div>
+
+      <hr class="oj-sm-margin-4x-top">
+    </div>
+
+    <!-- Create User Form -->
+    <h3 class="oj-typography-heading-md oj-text-color-primary">Create New User</h3>
+    <oj-input-text label-hint="Username" value="{{newUsername}}" required></oj-input-text>
+    <oj-input-text label-hint="Email" value="{{newEmail}}" required></oj-input-text>
+    <oj-input-text label-hint="Phone" value="{{newPhone}}" required></oj-input-text>
+    <oj-input-text label-hint="Password (plaintext)" value="{{newPassword}}" required></oj-input-text>
+    <oj-buttonset-one 
+        label-hint="Status" 
+        value="{{newStatus}}" 
+        class="oj-sm-margin-2x-top">
+      <oj-option value="active">Active</oj-option>
+      <oj-option value="inactive">Inactive</oj-option>
+      <oj-option value="suspended">Suspended</oj-option>
+    </oj-buttonset-one>
+
+
+    <oj-button on-oj-action="[[createUser]]" class="oj-sm-margin-2x-top oj-button-primary">
+      Create User
+    </oj-button>
+
+    <div data-bind="text: status" class="oj-sm-margin-2x-top oj-text-color-secondary"></div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<div class="oj-flex oj-sm-padding-4x" id="userLoansPage">
+  <div class="oj-flex-item">
+    <h2 class="oj-typography-heading-lg oj-text-color-primary">My Loans</h2>
+
+    <!-- Loans Table -->
+    <oj-table
+      id="userLoansTable"
+      aria-label="User Loans Table"
+      data="[[loansDataProvider]]"
+      columns='[
+        {"headerText": "Loan ID", "field": "loanId"},
+        {"headerText": "Loan Type", "field": "loanType"},
+        {"headerText": "Principal", "field": "principal"},
+        {"headerText": "Interest Rate", "field": "interestRate"},
+        {"headerText": "Duration (Months)", "field": "durationMonths"},
+        {"headerText": "Outstanding Amount", "field": "outstandingAmount"},
+        {"headerText": "Status", "field": "status"},
+        {"headerText": "Created At", "field": "createdAt"}
+      ]'
+      display="grid"
+      class="oj-sm-margin-4x-top"
+      style="width:100%; max-width:1200px; margin:auto;">
+
+      <!-- Status Template -->
+      <template slot="statusTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data.status.charAt(0).toUpperCase() + cell.data.status.slice(1)"></span>
+      </template>
+
+      <!-- Principal Template -->
+      <template slot="principalTemplate" data-oj-as="cell">
+        <span data-bind="text: '$' + parseFloat(cell.data.principal).toFixed(2)"></span>
+      </template>
+
+      <!-- Outstanding Amount Template -->
+      <template slot="outstandingAmountTemplate" data-oj-as="cell">
+        <span data-bind="text: '$' + parseFloat(cell.data.outstandingAmount).toFixed(2)"></span>
+      </template>
+
+      <!-- Interest Rate Template -->
+      <template slot="interestRateTemplate" data-oj-as="cell">
+        <span data-bind="text: parseFloat(cell.data.interestRate).toFixed(2) + '%'"></span>
+      </template>
+    </oj-table>
+
+    <!-- Apply for Loan Section -->
+    <div class="oj-sm-margin-4x-top">
+      <h3 class="oj-typography-heading-sm oj-text-color-primary">Apply for Loan</h3>
+
+      <div class="oj-flex">
+        <div class="oj-flex-item oj-sm-12 oj-md-6">
+          <oj-select-single
+            label-hint="Loan Type"
+            data="[[loanTypesDataProvider]]"
+            value="{{newLoanType}}"
+            item-text="label"
+            item-value="value"
+            required>
+          </oj-select-single>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6">
+          <oj-input-number
+            label-hint="Principal Amount"
+            value="{{principalAmount}}"
+            min="1000"
+            step="100"
+            required>
+          </oj-input-number>
+        </div>
+      </div>
+
+      <div class="oj-flex oj-sm-margin-2x-top">
+        <div class="oj-flex-item oj-sm-12 oj-md-6">
+          <oj-input-number
+            label-hint="Interest Rate (%)"
+            value="{{interestRate}}"
+            min="0.01"
+            max="50"
+            step="0.01"
+            required>
+          </oj-input-number>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6">
+          <oj-input-number
+            label-hint="Duration (Months)"
+            value="{{durationMonths}}"
+            min="6"
+            max="360"
+            required>
+          </oj-input-number>
+        </div>
+      </div>
+
+      <div class="oj-flex oj-sm-margin-2x-top">
+        <div class="oj-flex-item oj-sm-12 oj-md-6">
+          <oj-input-number
+            label-hint="Outstanding Amount"
+            value="{{outstandingAmount}}"
+            min="0"
+            step="100"
+            required>
+          </oj-input-number>
+        </div>
+      </div>
+
+      <div class="oj-flex oj-sm-margin-4x-top">
+        <oj-button on-oj-action="[[applyForLoan]]" class="oj-button-primary oj-sm-margin-end-2x">
+          Apply for Loan
+        </oj-button>
+        <oj-button on-oj-action="[[resetForm]]">
+          Reset
+        </oj-button>
+      </div>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <div class="oj-sm-margin-4x-top oj-flex oj-sm-justify-content-center">
+      <oj-button on-oj-action="backToDashboard" class="oj-button-primary">
+        Back to Dashboard
+      </oj-button>
+    </div>
+
+    <!-- Status Message -->
+    <div data-bind="text: statusMessage" class="oj-sm-margin-2x-top oj-text-color-secondary"></div>
+  </div>
+</div>

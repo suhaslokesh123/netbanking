@@ -1,0 +1,37 @@
+<div class="oj-flex oj-sm-padding-4x" id="userAccountsPage">
+  <div class="oj-flex-item">
+    <h2 class="oj-typography-heading-lg oj-text-color-primary">My Accounts</h2>
+
+    <!-- User Accounts Table -->
+    <oj-table
+      id="userAccountsTable"
+      aria-label="User Accounts Table"
+      data="[[accountsDataProvider]]"
+      columns='[
+        {"headerText": "Account No", "field": "accountNo"},
+        {"headerText": "Account Type", "field": "accountType"},
+        {"headerText": "Balance", "field": "balance"},
+        {"headerText": "Status", "field": "status"},
+        {"headerText": "Created At", "field": "createdAt"}
+      ]'
+      display="grid"
+      class="oj-sm-margin-4x-top"
+      style="width:100%; max-width:1100px; margin:auto;">
+
+      <!-- Status Template -->
+      <template slot="statusTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data.status.charAt(0).toUpperCase() + cell.data.status.slice(1)"></span>
+      </template>
+    </oj-table>
+
+    <!-- Back to Dashboard Button -->
+    <div class="oj-sm-margin-4x-top oj-flex oj-sm-justify-content-center">
+      <oj-button on-oj-action="backToDashboard" class="oj-button-primary">
+        Back to Dashboard
+      </oj-button>
+    </div>
+
+    <!-- Status Message -->
+    <div data-bind="text: statusMessage" class="oj-sm-margin-2x-top oj-text-color-secondary"></div>
+  </div>
+</div>

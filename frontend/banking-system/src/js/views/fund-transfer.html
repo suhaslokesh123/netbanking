@@ -1,0 +1,62 @@
+<div class="oj-flex oj-sm-padding-4x" id="fundTransferPage">
+  <div class="oj-flex-item">
+    <h2 class="oj-typography-heading-lg oj-text-color-primary">Fund Transfer</h2>
+
+    <!-- Fund Transfer Form -->
+    <div class="oj-flex oj-sm-margin-4x-top">
+      <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+        <oj-form-layout max-columns="1" label-edge="inside">
+
+          <!-- From Account Dropdown -->
+          <oj-select-single
+            label-hint="From Account"
+            data="[[fromAccountsDataProvider]]"
+            value="{{fromAccountNo}}"
+            item-text="displayText"
+            item-value="accountNo"
+            required>
+          </oj-select-single>
+
+          <!-- To Account Number -->
+          <oj-input-number
+            label-hint="To Account Number"
+            value="{{toAccountNo}}"
+            min="1"
+            step="1"
+            required>
+          </oj-input-number>
+
+          <!-- Transfer Amount -->
+          <oj-input-number
+            label-hint="Amount"
+            value="{{transferAmount}}"
+            min="0.01"
+            step="0.01"
+            required>
+          </oj-input-number>
+
+        </oj-form-layout>
+
+        <!-- Buttons -->
+        <div class="oj-flex oj-sm-margin-4x-top">
+          <oj-button on-oj-action="[[performFundTransfer]]" class="oj-button-primary oj-sm-margin-end-2x">
+            Transfer Funds
+          </oj-button>
+          <oj-button on-oj-action="[[resetForm]]">
+            Reset
+          </oj-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+    <div class="oj-sm-margin-4x-top oj-flex oj-sm-justify-content-center">
+      <oj-button on-oj-action="backToDashboard" class="oj-button-primary">
+        Back to Dashboard
+      </oj-button>
+    </div>
+
+    <!-- Status Message -->
+    <div data-bind="text: statusMessage" class="oj-sm-margin-2x-top oj-text-color-secondary"></div>
+  </div>
+</div>

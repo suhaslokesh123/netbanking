@@ -1,0 +1,69 @@
+<div class="oj-flex oj-sm-padding-4x" id="userCardsPage">
+  <div class="oj-flex-item">
+    <h2 class="oj-typography-heading-lg oj-text-color-primary">My Cards</h2>
+
+    <!-- User Cards Table -->
+    <oj-table id="userCardsTable" aria-label="User Cards Table" data="[[cardsDataProvider]]" columns='[
+        {"headerText": "Card ID", "field": "cardId"},
+        {"headerText": "Account No", "field": "accountNo"},
+        {"headerText": "Card Number", "field": "cardNumber"},
+        {"headerText": "Card Type", "field": "cardType"},
+        {"headerText": "Expiry Date", "field": "expiryDate"},
+        {"headerText": "Status", "field": "status"},
+        {"headerText": "Actions", "template": "actionTemplate"}
+      ]' display="grid" class="oj-sm-margin-4x-top" style="width:100%; max-width:1100px; margin:auto;">
+
+      <!-- Status Template -->
+      <template slot="statusTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data.status.charAt(0).toUpperCase() + cell.data.status.slice(1)"></span>
+      </template>
+
+      <!-- Action Template -->
+      <template slot="actionTemplate" data-oj-as="cell">
+        <div style="display: flex; gap: 10px;">
+          <a href="#" style="color: #007bff; text-decoration: none;"
+            data-bind="click: function() { editCardStatus(cell.row.cardId, cell.row.status); }">Edit Status</a>
+        </div>
+      </template>
+    </oj-table>
+
+    <!-- Back to Dashboard Button -->
+    <div class="oj-sm-margin-4x-top oj-flex oj-sm-justify-content-center">
+      <oj-button on-oj-action="backToDashboard" class="oj-button-primary">
+        Back to Dashboard
+      </oj-button>
+    </div>
+
+    <!-- Status Message -->
+    <div data-bind="text: statusMessage" class="oj-sm-margin-2x-top oj-text-color-secondary"></div>
+  </div>
+
+  <!-- Edit Status Dialog -->
+  <oj-dialog id="editStatusDialog" dialog-title="Edit Card Status" modal="true">
+    <div slot="body">
+      <oj-form-layout>
+        <!-- Show current card info -->
+        <oj-input-text label-hint="Card Number" value="[[selectedCard().cardNumber]]" readonly>
+        </oj-input-text>
+
+        <oj-input-text label-hint="Card Type" value="[[selectedCard().cardType]]" readonly>
+        </oj-input-text>
+
+        <!-- Dropdown for selecting new status -->
+        <oj-select-single label-hint="Select New Status" data="[[statusOptionsProvider]]" value="{{newStatus}}"
+          item-text="label" item-value="value" required>
+        </oj-select-single>
+      </oj-form-layout>
+    </div>
+
+    <div slot="footer">
+      <oj-button on-oj-action="[[updateCardStatus]]">
+        Update
+      </oj-button>
+      <oj-button on-oj-action="[[cancelEditDialog]]">
+        Cancel
+      </oj-button>
+    </div>
+  </oj-dialog>
+
+</div>

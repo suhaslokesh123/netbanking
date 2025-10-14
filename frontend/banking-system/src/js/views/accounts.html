@@ -1,0 +1,118 @@
+<div class="oj-hybrid-padding">
+  <h2 class="oj-typography-heading-lg oj-text-color-primary">Account Management</h2>
+
+  <!-- Create Account Form -->
+  <div class="oj-panel oj-sm-margin-4x">
+    <h3 class="oj-typography-heading-md">Create New Account</h3>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-label for="userSelect">Select Username</oj-label>
+      <oj-select-single
+        id="userSelect"
+        data="[[userDataProvider]]"
+        value="{{selectedUserId}}"
+        item-text="username"
+        required>
+      </oj-select-single>
+
+      <oj-label for="accountTypeSelect">Account Type</oj-label>
+      <oj-select-single
+        id="accountTypeSelect"
+        data="[[accountTypeProvider]]"
+        value="{{selectedAccountType}}"
+        required>
+      </oj-select-single>
+
+      <oj-label for="balanceInput">Initial Balance</oj-label>
+      <oj-input-number id="balanceInput" value="{{balance}}" min="0" step="500"></oj-input-number>
+
+      <oj-label for="statusSelect">Status</oj-label>
+      <oj-select-single
+        id="statusSelect"
+        data="[[statusProvider]]"
+        value="{{selectedStatus}}"
+        required>
+      </oj-select-single>
+    </oj-form-layout>
+
+    <div class="oj-flex oj-sm-justify-content-center oj-sm-margin-top-4">
+      <oj-button on-oj-action="[[createAccount]]">Create Account</oj-button>
+    </div>
+  </div>
+
+  <!-- Edit Account Form -->
+  <div id="editAccountForm" data-bind="visible: isEditing" class="oj-panel oj-sm-margin-4x">
+    <h3 class="oj-typography-heading-md oj-text-color-primary">Edit Account</h3>
+    <oj-form-layout max-columns="2" direction="row">
+      <oj-label for="editUsername">Username</oj-label>
+      <oj-input-text
+        id="editUsername"
+        value="{{editUsername}}"
+        disabled>
+      </oj-input-text>
+
+      <oj-label for="editAccountTypeSelect">Account Type</oj-label>
+      <oj-select-single
+        id="editAccountTypeSelect"
+        data="[[accountTypeProvider]]"
+        value="{{editAccountType}}"
+        required>
+      </oj-select-single>
+
+      <oj-label for="editBalanceInput">Balance</oj-label>
+      <oj-input-number
+        id="editBalanceInput"
+        value="{{editBalance}}"
+        min="0"
+        step="500">
+      </oj-input-number>
+
+      <oj-label for="editStatusSelect">Status</oj-label>
+      <oj-select-single
+        id="editStatusSelect"
+        data="[[statusProvider]]"
+        value="{{editStatus}}"
+        required>
+      </oj-select-single>
+    </oj-form-layout>
+
+    <div class="oj-sm-margin-2x-top oj-flex">
+      <oj-button on-oj-action="[[updateAccount]]" class="oj-button-primary">Update Account</oj-button>
+      <oj-button on-oj-action="[[cancelEdit]]" chroming="outlined" class="oj-sm-margin-2x-start">Cancel</oj-button>
+    </div>
+  </div>
+
+  <!-- Accounts Table -->
+  <div class="oj-panel oj-sm-margin-4x">
+    <h3 class="oj-typography-heading-md">Accounts List</h3>
+    <oj-table
+      id="accountsTable"
+      aria-label="Accounts Table"
+      data="[[accountsDataProvider]]"
+      display="grid"
+      class="oj-sm-margin-4x-top"
+      style="width:100%; max-width:1100px; margin:auto;"
+      columns='[
+        {"headerText": "Account No", "field": "accountNo"},
+        {"headerText": "Username", "field": "username"},
+        {"headerText": "Type", "field": "accountType"},
+        {"headerText": "Balance", "field": "balance"},
+        {"headerText": "Status", "field": "status"},
+        {"headerText": "Created At", "field": "createdAt"},
+        {"headerText": "Actions", "template": "actionTemplate"}
+      ]'>
+
+      <!-- Status Template -->
+      <template slot="statusTemplate" data-oj-as="cell">
+        <span>[[cell.data.status.charAt(0).toUpperCase() + cell.data.status.slice(1)]]</span>
+      </template>
+
+      <!-- Actions Template -->
+      <template slot="actionTemplate" data-oj-as="cell">
+        <div style="display: flex; gap: 10px;">
+          <a href="#" style="color: #007bff; text-decoration: none;" data-bind="click: function() { startEdit(cell.row); }">Edit</a>
+          <a href="#" style="color: #dc3545; text-decoration: none;" data-bind="click: function() { deleteAccount(cell.row); }">Delete</a>
+        </div>
+      </template>
+    </oj-table>
+  </div>
+</div>

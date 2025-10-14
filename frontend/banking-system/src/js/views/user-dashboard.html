@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .dashboard-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+        .welcome-section {
+            text-align: center;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 24px;
+        }
+        .stat-card p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .actions-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .action-button {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        .action-button:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div style="text-align: right; margin-bottom: 20px;">
+            <button onclick="signOut()" style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Sign Out</button>
+        </div>
+        <h1>User Dashboard</h1>
+
+        <div class="welcome-section">
+            <h2>Welcome to Your Banking Portal</h2>
+            <p>Access your accounts, view transactions, and manage your banking needs.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-bind="text: totalAccounts">-</div>
+                <h3>My Accounts</h3>
+                <p>Your active bank accounts</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-bind="text: totalCards">-</div>
+                <h3>My Cards</h3>
+                <p>Your active cards</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-bind="text: recentTransactions">-</div>
+                <h3>Recent Transactions</h3>
+                <p>Last 30 days activity</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-bind="text: accountBalance">-</div>
+                <h3>Total Balance</h3>
+                <p>Combined account balance</p>
+            </div>
+        </div>
+
+        <div class="actions-section">
+            <h2 style="color: #333; margin-bottom: 20px;">Quick Actions</h2>
+            <a href="#accounts" class="action-button" onclick="navigateToAccounts()">My Accounts</a>
+            <a href="#cards" class="action-button" onclick="navigateToCards()">My Cards</a>
+            <a href="#loans" class="action-button" onclick="navigateToLoans()">My Loans</a>
+            <a href="#transactions" class="action-button" onclick="navigateToTransactions()">Transactions</a>
+            <a href="#fund-transfer" class="action-button" onclick="navigateToFundTransfer()">Fund Transfer</a>
+            <a href="#profile" class="action-button" onclick="navigateToProfile()">Profile</a>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functions
+        function navigateToAccounts() {
+            window.location.href = 'http://localhost:8000/?ojr=user-accounts';
+        }
+        function navigateToCards() {
+            window.location.href = 'http://localhost:8000/?ojr=user-cards';
+        }
+        function navigateToLoans() {
+            window.location.href = 'http://localhost:8000/?ojr=user-loans';
+        }
+        function navigateToTransactions() {
+            window.location.href = 'http://localhost:8000/?ojr=user-transactions';
+        }
+        function navigateToFundTransfer() {
+            window.location.href = 'http://localhost:8000/?ojr=fund-transfer';
+        }
+        function navigateToProfile() {
+            window.location.href = 'http://localhost:8000/?ojr=user-profile';
+        }
+    </script>
+</body>
+</html>

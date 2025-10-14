@@ -1,0 +1,140 @@
+<div class="oj-flex oj-sm-padding-4x" id="loansPage">
+  <div class="oj-flex-item">
+    <h2 class="oj-typography-heading-lg oj-text-color-primary">Loan Management</h2>
+
+    <!-- Loans Table -->
+    <oj-table
+      id="loansTable"
+      aria-label="Loans Table"
+      data="[[dataProvider]]"
+      columns='[
+        {"headerText": "Loan ID", "field": "loanId"},
+        {"headerText": "User ID", "field": "userId"},
+        {"headerText": "Loan Type", "field": "loanType"},
+        {"headerText": "Principal", "field": "principal"},
+        {"headerText": "Interest Rate", "field": "interestRate"},
+        {"headerText": "Duration (Months)", "field": "durationMonths"},
+        {"headerText": "Outstanding Amount", "field": "outstandingAmount"},
+        {"headerText": "Status", "field": "status"},
+        {"headerText": "Actions", "template": "actionTemplate"},
+        {"headerText": "Created At", "field": "createdAt"}
+      ]'
+      display="grid"
+      class="oj-sm-margin-4x-top"
+      style="width:100%; max-width:1400px; margin:auto;">
+
+      <!-- Status Template -->
+      <template slot="statusTemplate" data-oj-as="cell">
+        <span data-bind="text: cell.data.status.charAt(0).toUpperCase() + cell.data.status.slice(1)"></span>
+      </template>
+
+      <!-- Action Template -->
+      <template slot="actionTemplate" data-oj-as="cell">
+        <a href="#" style="color: #007bff; text-decoration: none; cursor: pointer;"
+           data-bind="click: function() { startEdit(cell.row); }">
+          Edit
+        </a>
+      </template>
+    </oj-table>
+
+    <!-- Buttons -->
+    <div class="oj-sm-margin-2x-top oj-flex oj-sm-justify-content-start">
+      <oj-button on-oj-action="[[refreshLoans]]" class="oj-button-primary">
+        Refresh Loans
+      </oj-button>
+    </div>
+
+    <!-- Status Message -->
+    <div data-bind="text: statusMessage" class="oj-sm-margin-2x-top oj-text-color-secondary"></div>
+
+    <!-- Edit Loan Form -->
+    <div id="editLoanForm" data-bind="visible: isEditing" class="oj-panel oj-sm-margin-4x">
+      <h3 class="oj-typography-heading-md oj-text-color-primary">Edit Loan</h3>
+      <div class="oj-flex oj-flex-wrap">
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editLoanId">Loan ID</oj-label>
+          <oj-input-text
+            id="editLoanId"
+            value="{{editLoanId}}"
+            disabled>
+          </oj-input-text>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editUserId">User ID</oj-label>
+          <oj-input-text
+            id="editUserId"
+            value="{{editUserId}}"
+            disabled>
+          </oj-input-text>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editLoanTypeSelect">Loan Type</oj-label>
+          <oj-select-single
+            id="editLoanTypeSelect"
+            data="[[loanTypeProvider]]"
+            value="{{editLoanType}}"
+            required>
+          </oj-select-single>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editPrincipalInput">Principal</oj-label>
+          <oj-input-number
+            id="editPrincipalInput"
+            value="{{editPrincipal}}"
+            min="0"
+            step="1000">
+          </oj-input-number>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editInterestRateInput">Interest Rate (%)</oj-label>
+          <oj-input-number
+            id="editInterestRateInput"
+            value="{{editInterestRate}}"
+            min="0"
+            max="50"
+            step="0.01">
+          </oj-input-number>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editDurationMonthsInput">Duration (Months)</oj-label>
+          <oj-input-number
+            id="editDurationMonthsInput"
+            value="{{editDurationMonths}}"
+            min="1"
+            max="360">
+          </oj-input-number>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editOutstandingAmountInput">Outstanding Amount</oj-label>
+          <oj-input-number
+            id="editOutstandingAmountInput"
+            value="{{editOutstandingAmount}}"
+            min="0"
+            step="1000">
+          </oj-input-number>
+        </div>
+
+        <div class="oj-flex-item oj-sm-12 oj-md-6 oj-lg-4">
+          <oj-label for="editStatusSelect">Status</oj-label>
+          <oj-select-single
+            id="editStatusSelect"
+            data="[[statusOptionsProvider]]"
+            value="{{editStatus}}"
+            required>
+          </oj-select-single>
+        </div>
+      </div>
+
+      <div class="oj-sm-margin-2x-top oj-flex">
+        <oj-button on-oj-action="[[updateLoan]]" class="oj-button-primary">Update Loan</oj-button>
+        <oj-button on-oj-action="[[cancelEdit]]" chroming="outlined" class="oj-sm-margin-2x-start">Cancel</oj-button>
+      </div>
+    </div>
+  </div>
+</div>

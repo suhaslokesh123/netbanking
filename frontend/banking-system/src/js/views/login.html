@@ -1,0 +1,35 @@
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); font-family: Arial, sans-serif;">
+  <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1); max-width: 400px; width: 100%; margin: 20px;">
+    <h2 style="text-align: center; color: #333; margin-bottom: 30px;">Banking System Login</h2>
+
+    <form data-bind="submit: login">
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 500;">Role</label>
+        <div style="display: flex; gap: 10px;">
+          <label style="flex: 1;">
+            <input type="radio" value="admin" data-bind="checked: role" style="margin-right: 5px;" />
+            Admin
+          </label>
+          <label style="flex: 1;">
+            <input type="radio" value="user" data-bind="checked: role" style="margin-right: 5px;" />
+            User
+          </label>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label for="username" style="display: block; margin-bottom: 8px; font-weight: 500;">Username</label>
+        <input type="text" id="username" data-bind="value: username" placeholder="Enter username" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" />
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <label for="password" style="display: block; margin-bottom: 8px; font-weight: 500;">Password</label>
+        <input type="password" id="password" data-bind="value: password" placeholder="Enter password" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;" />
+      </div>
+
+      <button type="submit" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 10px;">Login</button>
+
+      <div data-bind="text: errorMessage" style="color: #e74c3c; text-align: center; margin-top: 15px; font-weight: 500;"></div>
+    </form>
+  </div>
+</div>
